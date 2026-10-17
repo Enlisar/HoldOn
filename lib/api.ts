@@ -2,7 +2,7 @@ import { calculateTrueCost } from './categoryBenchmarks';
 import { getSettings } from './storage';
 import type { TrueCostAnalysis } from './types';
 
-interface GrokAnalysisResponse {
+interface AiAnalysisResponse {
   lifespanDisplay: string;
   lifespanMonths: number;
   repairabilityScore: number;
@@ -26,7 +26,7 @@ interface GrokAnalysisResponse {
   }>;
 }
 
-export async function analyzeProductWithGrok(
+export async function analyzeProductWithAi(
   title: string,
   price: number,
   currency: string = '₹',
@@ -40,27 +40,61 @@ export async function analyzeProductWithGrok(
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        ...(settings.grokApiKey ? { Authorization: `Bearer ${settings.grokApiKey.trim()}` } : {}),
+        ...(settings.geminiApiKey ? { Authorization: `Bearer ${settings.geminiApiKey.trim()}` } : {}),
       },
       body: JSON.stringify({ title, price, currency, category: categoryBreadcrumb }),
       signal: AbortSignal.timeout(2000), // Quick check
     });
 
     if (proxyRes.ok) {
-      const parsed: GrokAnalysisResponse = await proxyRes.json();
-      return formatGrokResult(parsed, title, price, currency, categoryBreadcrumb);
+      const parsed: AiAnalysisResponse = await proxyRes.json();
+      return formatAiResult(parsed, title, price, currency, categoryBreadcrumb, 'gemini');
     }
   } catch {
     // Proxy server not active, proceed to direct check
   }
 
-  // 2. If no Grok API key is provided, or user disabled Grok, use our intelligent local engine
-  if (!settings.grokApiKey || !settings.useGrokApi) {
-    return calculateTrueCost(title, price, currency, categoryBreadcrumb);
+  // 2. Direct Google Gemini API Call
+  const geminiKey = settings.geminiApiKey?.trim();
+  if (geminiKey && settings.useGeminiApi !== false) {
+    try {
+      const result = await callGeminiApi(geminiKey, title, price, currency, categoryBreadcrumb);
+      if (result) {
+        return formatAiResult(result, title, price, currency, categoryBreadcrumb, 'gemini');
+      }
+    } catch (err) {
+      console.warn('[HoldOn Gemini API] Direct call failed, falling back:', err);
+    }
   }
 
-  try {
-    const prompt = `You are the HoldOn AI Engine. Analyze this consumer product for true ownership cost, durability, and circular economy footprint.
+  // 3. Optional fallback to Grok if user configured Grok key
+  const grokKey = settings.grokApiKey?.trim();
+  if (grokKey && settings.useGrokApi) {
+    try {
+      const result = await callGrokApi(grokKey, title, price, currency, categoryBreadcrumb);
+      if (result) {
+        return formatAiResult(result, title, price, currency, categoryBreadcrumb, 'grok');
+      }
+    } catch (err) {
+      console.warn('[HoldOn Grok API] Direct call failed, falling back:', err);
+    }
+  }
+
+  // 4. Intelligent Local Engine Fallback (30+ categories + dynamic heuristic estimator)
+  return calculateTrueCost(title, price, currency, categoryBreadcrumb);
+}
+
+// Aliased export for backwards compatibility
+export const analyzeProductWithGrok = analyzeProductWithAi;
+
+async function callGeminiApi(
+  apiKey: string,
+  title: string,
+  price: number,
+  currency: string,
+  categoryBreadcrumb: string
+): Promise<AiAnalysisResponse | null> {
+  const prompt = `You are the HoldOn Circular Shopping Assistant AI. Analyze this consumer product for true ownership cost, repairability, durability, and sustainable alternatives.
 
 Product Title: "${title}"
 Category: "${categoryBreadcrumb}"
@@ -88,55 +122,84 @@ Return ONLY valid JSON matching this exact structure:
 }
 Values for repairabilityRating: "Poor" | "Fair" | "Moderate" | "Good" | "Exceptional".
 Values for verdictType: "warning" | "caution" | "neutral" | "recommended".
-Do not wrap in markdown quotes if possible, output pure JSON.`;
+Do NOT include markdown block syntax like \`\`\`json, output strict raw JSON only.`;
 
-    const response = await fetch('https://api.x.ai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${settings.grokApiKey.trim()}`,
-      },
-      body: JSON.stringify({
-        model: 'grok-beta',
-        messages: [
-          {
-            role: 'system',
-            content: 'You are an expert circular economy engineer and product durability analyst. Always respond in strict raw JSON without backticks.',
-          },
-          {
-            role: 'user',
-            content: prompt,
-          },
-        ],
-        temperature: 0.3,
-      }),
-    });
+  const models = ['gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-2.0-flash'];
+  let lastError: any = null;
 
-    if (!response.ok) {
-      console.warn(`[HoldOn Grok API] HTTP error ${response.status}: Falling back to local benchmark`);
-      return calculateTrueCost(title, price, currency, categoryBreadcrumb);
+  for (const model of models) {
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [{ text: prompt }],
+            },
+          ],
+          generationConfig: {
+            temperature: 0.2,
+            responseMimeType: 'application/json',
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        lastError = await response.text();
+        continue;
+      }
+
+      const data = await response.json();
+      const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '';
+      const cleanJson = rawText.replace(/^```json\s*/i, '').replace(/\s*```$/i, '').trim();
+      return JSON.parse(cleanJson);
+    } catch (err) {
+      lastError = err;
     }
-
-    const data = await response.json();
-    const content = data.choices?.[0]?.message?.content?.trim() || '';
-
-    // Strip ```json if Grok returned wrapped markdown
-    const jsonStr = content.replace(/^```json\s*/, '').replace(/\s*```$/, '').trim();
-    const parsed: GrokAnalysisResponse = JSON.parse(jsonStr);
-
-    return formatGrokResult(parsed, title, price, currency, categoryBreadcrumb);
-  } catch (error) {
-    console.warn('[HoldOn Grok API] Failed to fetch or parse Grok response, using local engine fallback:', error);
-    return calculateTrueCost(title, price, currency, categoryBreadcrumb);
   }
+
+  throw new Error(typeof lastError === 'string' ? lastError : 'Failed to call Gemini API across tested models');
 }
 
-function formatGrokResult(
-  parsed: GrokAnalysisResponse,
+async function callGrokApi(
+  apiKey: string,
   title: string,
   price: number,
   currency: string,
   categoryBreadcrumb: string
+): Promise<AiAnalysisResponse | null> {
+  const prompt = `Analyze this product for durability: "${title}", price: ${currency} ${price}. Return JSON matching structure with repairabilityScore (1-10), verdict, breakdown, alternatives.`;
+  const response = await fetch('https://api.x.ai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model: 'grok-beta',
+      messages: [{ role: 'user', content: prompt }],
+      temperature: 0.3,
+    }),
+  });
+
+  if (!response.ok) return null;
+  const data = await response.json();
+  const content = data.choices?.[0]?.message?.content?.trim() || '';
+  const cleanJson = content.replace(/^```json\s*/i, '').replace(/\s*```$/i, '').trim();
+  return JSON.parse(cleanJson);
+}
+
+function formatAiResult(
+  parsed: AiAnalysisResponse,
+  title: string,
+  price: number,
+  currency: string,
+  categoryBreadcrumb: string,
+  source: 'gemini' | 'grok' = 'gemini'
 ): TrueCostAnalysis {
   const cleanPrice = Math.max(1, price);
   const resaleVal = Math.round((cleanPrice * (parsed.resalePercentage || 30)) / 100);
@@ -157,11 +220,11 @@ function formatGrokResult(
     costPerMonth: costPerMo,
     costPerUse,
     co2FootprintKg: Math.round(cleanPrice * 0.008 + 15),
-    verdict: parsed.verdict || 'Moderately durable product',
+    verdict: parsed.verdict || 'Durability assessed',
     verdictType: parsed.verdictType || 'caution',
-    summary: parsed.summary || 'Durability assessment powered by Grok AI.',
+    summary: parsed.summary || 'Durability assessment powered by Gemini AI.',
     breakdown: parsed.breakdown || [],
     alternatives: parsed.alternatives || [],
-    source: 'grok',
+    source,
   };
 }

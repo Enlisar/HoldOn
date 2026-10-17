@@ -7,9 +7,11 @@ const STORAGE_KEYS = {
 };
 
 const DEFAULT_SETTINGS: AppSettings = {
+  geminiApiKey: '',
+  useGeminiApi: true,
   grokApiKey: '',
-  currentCity: 'Delhi NCR',
   useGrokApi: false,
+  currentCity: 'Delhi NCR',
   autoAnalyze: true,
   theme: 'dark',
 };

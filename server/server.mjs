@@ -3,13 +3,13 @@ import cors from 'cors';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const GROK_API_KEY = process.env.GROK_API_KEY || '';
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
 
 app.use(cors());
 app.use(express.json());
 
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', hasKey: !!GROK_API_KEY });
+  res.json({ status: 'ok', hasKey: !!GEMINI_API_KEY });
 });
 
 app.post('/api/analyze', async (req, res) => {
@@ -19,13 +19,13 @@ app.post('/api/analyze', async (req, res) => {
     return res.status(400).json({ error: 'Missing product title' });
   }
 
-  const apiKey = GROK_API_KEY || req.headers.authorization?.replace(/^Bearer\s+/, '');
+  const apiKey = GEMINI_API_KEY || req.headers.authorization?.replace(/^Bearer\s+/, '');
   if (!apiKey) {
-    return res.status(401).json({ error: 'No Grok API key configured on server or in request' });
+    return res.status(401).json({ error: 'No Gemini API key configured on server or in request' });
   }
 
   try {
-    const prompt = `You are the HoldOn AI Engine. Analyze this consumer product for true ownership cost, durability, and circular economy footprint.
+    const prompt = `You are the HoldOn Circular Shopping Assistant AI. Analyze this consumer product for true ownership cost, durability, and circular economy footprint.
 
 Product Title: "${title}"
 Category: "${category}"
@@ -53,41 +53,48 @@ Return ONLY valid JSON matching this exact structure:
 }
 Values for repairabilityRating: "Poor" | "Fair" | "Moderate" | "Good" | "Exceptional".
 Values for verdictType: "warning" | "caution" | "neutral" | "recommended".
-Do not wrap in markdown quotes if possible, output pure JSON.`;
+Do NOT include markdown block syntax like \`\`\`json, output strict raw JSON only.`;
 
-    const grokRes = await fetch('https://api.x.ai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: 'grok-beta',
-        messages: [
-          { role: 'system', content: 'You are an expert circular economy engineer. Always respond in strict raw JSON.' },
-          { role: 'user', content: prompt }
-        ],
-        temperature: 0.3,
-      }),
-    });
+    const models = ['gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-2.0-flash'];
+    let lastError = null;
 
-    if (!grokRes.ok) {
-      const err = await grokRes.text();
-      return res.status(grokRes.status).json({ error: err });
+    for (const model of models) {
+      try {
+        const geminiRes = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: prompt }] }],
+              generationConfig: {
+                temperature: 0.2,
+                responseMimeType: 'application/json',
+              },
+            }),
+          }
+        );
+
+        if (geminiRes.ok) {
+          const data = await geminiRes.json();
+          const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '';
+          const cleanJson = rawText.replace(/^```json\s*/i, '').replace(/\s*```$/i, '').trim();
+          return res.json(JSON.parse(cleanJson));
+        } else {
+          lastError = await geminiRes.text();
+        }
+      } catch (e) {
+        lastError = e?.message || e;
+      }
     }
 
-    const data = await grokRes.json();
-    const content = data.choices?.[0]?.message?.content?.trim() || '';
-    const cleanJson = content.replace(/^```json\s*/, '').replace(/\s*```$/, '').trim();
-    const parsed = JSON.parse(cleanJson);
-
-    res.json(parsed);
+    return res.status(500).json({ error: lastError || 'Failed to analyze product with Gemini API' });
   } catch (error) {
     console.error('Server analyze error:', error);
-    res.status(500).json({ error: 'Failed to analyze product with Grok API' });
+    res.status(500).json({ error: 'Failed to analyze product with Gemini API' });
   }
 });
 
 app.listen(PORT, () => {
-  console.log(`[HoldOn Server] Grok Proxy backend listening on http://localhost:${PORT}`);
+  console.log(`[HoldOn Server] Gemini Proxy backend listening on http://localhost:${PORT}`);
 });

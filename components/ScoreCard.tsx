@@ -73,6 +73,11 @@ export const ScoreCard: React.FC<ScoreCardProps> = ({
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5 text-[11px] font-medium text-[#C8C2D8]">
             <span className="truncate">{analysis.category}</span>
+            {analysis.source === 'gemini' && (
+              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-[#B9A1F5]/20 text-[#B9A1F5] border border-[#B9A1F5]/30 flex-shrink-0">
+                <Sparkles className="w-2.5 h-2.5" strokeWidth={1.5} /> Gemini AI
+              </span>
+            )}
             {analysis.source === 'grok' && (
               <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-[#B9A1F5]/20 text-[#B9A1F5] border border-[#B9A1F5]/30 flex-shrink-0">
                 <Sparkles className="w-2.5 h-2.5" strokeWidth={1.5} /> Grok AI

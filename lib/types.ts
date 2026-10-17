@@ -37,7 +37,7 @@ export interface TrueCostAnalysis {
   summary: string;
   breakdown: BreakdownPoint[];
   alternatives: SustainableAlternative[];
-  source: 'grok' | 'intelligent-engine';
+  source: 'gemini' | 'grok' | 'intelligent-engine';
 }
 
 export interface ProductInfo {
@@ -120,9 +120,11 @@ export interface LocalPlace {
 }
 
 export interface AppSettings {
-  grokApiKey: string;
+  geminiApiKey: string;
+  useGeminiApi: boolean;
+  grokApiKey?: string;
+  useGrokApi?: boolean;
   currentCity: string;
-  useGrokApi: boolean;
   autoAnalyze: boolean;
   theme: 'dark' | 'light' | 'system';
 }

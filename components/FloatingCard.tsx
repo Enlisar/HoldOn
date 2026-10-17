@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { analyzeProductWithGrok } from '../lib/api';
+import { analyzeProductWithAi } from '../lib/api';
 import { addToPauseList, getSettings } from '../lib/storage';
 import type { ProductInfo, TrueCostAnalysis } from '../lib/types';
 import { DecisionTree } from './DecisionTree';
@@ -45,7 +45,7 @@ export const FloatingCard: React.FC<FloatingCardProps> = ({
   const runAnalysis = async () => {
     setLoading(true);
     try {
-      const result = await analyzeProductWithGrok(
+      const result = await analyzeProductWithAi(
         product.title,
         product.price,
         product.currency,

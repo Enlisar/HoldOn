@@ -16,6 +16,7 @@ export default defineConfig({
       '*://*.amazon.in/*',
       '*://*.amazon.com/*',
       '*://*.flipkart.com/*',
+      'https://generativelanguage.googleapis.com/*',
       'https://api.x.ai/*'
     ],
   },
