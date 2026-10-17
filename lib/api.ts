@@ -55,7 +55,8 @@ export async function analyzeProductWithAi(
   }
 
   // 2. Direct Google Gemini API Call
-  const geminiKey = settings.geminiApiKey?.trim();
+  const envKey = (import.meta as any).env?.VITE_GEMINI_API_KEY || '';
+  const geminiKey = settings.geminiApiKey?.trim() || envKey.trim();
   if (geminiKey && settings.useGeminiApi !== false) {
     try {
       const result = await callGeminiApi(geminiKey, title, price, currency, categoryBreadcrumb);

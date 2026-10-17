@@ -101,23 +101,23 @@ export const SettingsModal: React.FC<SettingsModalProps> = () => {
   };
 
   return (
-    <div className="space-y-3.5 text-[#F4F0FA] font-sans antialiased">
-      <div className="flex items-center justify-between pb-1.5 border-b border-[#3A344E]">
-        <h3 className="text-xs font-semibold text-[#F4F0FA] uppercase tracking-wider">
+    <div className="space-y-3.5 text-white font-sans antialiased">
+      <div className="flex items-center justify-between pb-1.5 border-b border-neutral-800">
+        <h3 className="text-xs font-semibold text-white uppercase tracking-wider">
           Settings &amp; AI
         </h3>
         {saveStatus && (
-          <span className="text-[11px] text-[#B9A1F5] font-medium flex items-center gap-1">
+          <span className="text-[11px] text-white font-medium flex items-center gap-1">
             <Check className="w-3 h-3" strokeWidth={1.5} /> {saveStatus}
           </span>
         )}
       </div>
 
       {/* Google Gemini AI Configuration */}
-      <div className="p-3 rounded-2xl bg-[#292438] border border-[#3A344E] space-y-2.5 shadow-[0_4px_16px_rgba(23,21,31,0.2)]">
+      <div className="p-3 rounded-2xl bg-neutral-900 border border-neutral-800 space-y-2.5">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5 text-xs font-semibold text-[#F4F0FA]">
-            <Sparkles className="w-3.5 h-3.5 text-[#B9A1F5]" strokeWidth={1.5} />
+          <div className="flex items-center gap-1.5 text-xs font-semibold text-white">
+            <Sparkles className="w-3.5 h-3.5 text-white" strokeWidth={1.5} />
             <span>Google Gemini AI</span>
           </div>
           <label className="relative inline-flex items-center cursor-pointer">
@@ -127,17 +127,17 @@ export const SettingsModal: React.FC<SettingsModalProps> = () => {
               onChange={(e) => setSettings({ ...settings, useGeminiApi: e.target.checked })}
               className="sr-only peer"
             />
-            <div className="w-8 h-4.5 bg-[#17151F] border border-[#3A344E] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-[#B9A1F5]"></div>
+            <div className="w-8 h-4.5 bg-black border border-neutral-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-white peer-checked:after:bg-black"></div>
           </label>
         </div>
 
-        <p className="text-[11px] text-[#C8C2D8] leading-relaxed">
+        <p className="text-[11px] text-neutral-400 leading-relaxed">
           Power real-time True Cost estimates, product repairability breakdowns, and circular alternatives using Google Gemini.
         </p>
 
         <div className="space-y-1.5 pt-0.5">
-          <label className="text-[10px] uppercase font-semibold text-[#A69FB8] flex items-center gap-1">
-            <Key className="w-3 h-3 text-[#A69FB8]" strokeWidth={1.5} /> Gemini API Key (AIza...)
+          <label className="text-[10px] uppercase font-semibold text-neutral-400 flex items-center gap-1">
+            <Key className="w-3 h-3 text-neutral-400" strokeWidth={1.5} /> Gemini API Key
           </label>
           <div className="flex items-center gap-1.5">
             <div className="relative flex-1">
@@ -146,12 +146,12 @@ export const SettingsModal: React.FC<SettingsModalProps> = () => {
                 placeholder="AIzaSy..."
                 value={settings.geminiApiKey || ''}
                 onChange={(e) => setSettings({ ...settings, geminiApiKey: e.target.value })}
-                className="w-full bg-[#17151F] border border-[#3A344E] rounded-xl px-2.5 py-1.5 text-xs text-[#F4F0FA] placeholder:text-[#5E5873] focus:outline-none focus:border-[#B9A1F5] pr-8"
+                className="w-full bg-black border border-neutral-800 rounded-xl px-2.5 py-1.5 text-xs text-white placeholder:text-neutral-600 focus:outline-none focus:border-white pr-8"
               />
               <button
                 type="button"
                 onClick={() => setShowKey(!showKey)}
-                className="absolute right-2 top-2 text-[#A69FB8] hover:text-[#F4F0FA] cursor-pointer"
+                className="absolute right-2 top-2 text-neutral-400 hover:text-white cursor-pointer"
               >
                 {showKey ? <EyeOff className="w-3.5 h-3.5" strokeWidth={1.5} /> : <Eye className="w-3.5 h-3.5" strokeWidth={1.5} />}
               </button>
@@ -160,7 +160,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = () => {
             <button
               onClick={testGeminiConnection}
               disabled={testingApi || !settings.geminiApiKey}
-              className="px-2.5 py-1.5 bg-[#B9A1F5] hover:bg-[#cbb9f8] disabled:bg-[#3A344E] disabled:text-[#A69FB8] text-[#17151F] rounded-xl text-xs font-semibold transition-colors flex-shrink-0 cursor-pointer shadow-[0_4px_16px_rgba(185,161,245,0.25)]"
+              className="px-2.5 py-1.5 bg-white hover:bg-neutral-200 disabled:bg-neutral-800 disabled:text-neutral-500 text-black rounded-xl text-xs font-bold transition-colors flex-shrink-0 cursor-pointer"
             >
               {testingApi ? 'Testing...' : 'Test Key'}
             </button>
@@ -170,26 +170,26 @@ export const SettingsModal: React.FC<SettingsModalProps> = () => {
             <div
               className={`p-2 rounded-xl text-[11px] flex items-start gap-1.5 ${
                 testResult.success
-                  ? 'bg-[#B9A1F5]/15 border border-[#B9A1F5]/40 text-[#B9A1F5]'
-                  : 'bg-[#F08787]/15 border border-[#F08787]/30 text-[#F08787]'
+                  ? 'bg-neutral-800 border border-neutral-700 text-white'
+                  : 'bg-neutral-900 border border-neutral-700 text-neutral-300'
               }`}
             >
               {testResult.success ? (
-                <ShieldCheck className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
+                <ShieldCheck className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-white" strokeWidth={1.5} />
               ) : (
-                <AlertCircle className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
+                <AlertCircle className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-neutral-400" strokeWidth={1.5} />
               )}
               <span>{testResult.message}</span>
             </div>
           )}
 
-          <div className="text-[10px] text-[#A69FB8] flex items-center justify-between pt-0.5">
-            <span>Stored in local extension storage or loaded via .env</span>
+          <div className="text-[10px] text-neutral-400 flex items-center justify-between pt-0.5">
+            <span>Configured in .env or stored locally.</span>
             <a
               href="https://aistudio.google.com/app/apikey"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#B9A1F5] hover:underline flex items-center gap-0.5"
+              className="text-white underline hover:text-neutral-300 flex items-center gap-0.5"
             >
               Get Free Gemini Key <ExternalLink className="w-2.5 h-2.5" strokeWidth={1.5} />
             </a>
@@ -198,13 +198,13 @@ export const SettingsModal: React.FC<SettingsModalProps> = () => {
       </div>
 
       {/* Region Information */}
-      <div className="p-3 rounded-2xl bg-[#292438] border border-[#3A344E] space-y-1.5 shadow-[0_4px_16px_rgba(23,21,31,0.2)]">
-        <label className="text-xs font-semibold text-[#F4F0FA] flex items-center gap-1.5">
-          <MapPin className="w-3.5 h-3.5 text-[#B9A1F5]" strokeWidth={1.5} /> Active Region
+      <div className="p-3 rounded-2xl bg-neutral-900 border border-neutral-800 space-y-1.5">
+        <label className="text-xs font-semibold text-white flex items-center gap-1.5">
+          <MapPin className="w-3.5 h-3.5 text-white" strokeWidth={1.5} /> Active Region
         </label>
-        <div className="flex items-center justify-between p-2 rounded-xl bg-[#17151F] border border-[#3A344E]">
-          <span className="text-xs font-bold text-[#F0C987]">Delhi NCR</span>
-          <span className="text-[10px] text-[#A69FB8]">8 Verified Circular Hubs</span>
+        <div className="flex items-center justify-between p-2 rounded-xl bg-black border border-neutral-800">
+          <span className="text-xs font-bold text-white">Delhi NCR</span>
+          <span className="text-[10px] text-neutral-400">8 Verified Circular Hubs</span>
         </div>
       </div>
 
@@ -212,14 +212,14 @@ export const SettingsModal: React.FC<SettingsModalProps> = () => {
       <div className="pt-2 flex items-center justify-between gap-2">
         <button
           onClick={handleClearData}
-          className="text-[#A69FB8] hover:text-[#F08787] text-xs flex items-center gap-1 transition-colors cursor-pointer"
+          className="text-neutral-400 hover:text-white text-xs flex items-center gap-1 transition-colors cursor-pointer"
         >
           <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} /> Clear Saved Data
         </button>
 
         <button
           onClick={handleSave}
-          className="px-4 py-2 bg-[#B9A1F5] hover:bg-[#cbb9f8] text-[#17151F] rounded-xl text-xs font-bold transition-all shadow-[0_4px_16px_rgba(185,161,245,0.25)] cursor-pointer"
+          className="px-4 py-2 bg-white hover:bg-neutral-200 text-black rounded-xl text-xs font-bold transition-all cursor-pointer"
         >
           Save Changes
         </button>

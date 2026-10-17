@@ -69,54 +69,54 @@ export const PauseList: React.FC<PauseListProps> = () => {
   const displayedItems = activeTab === 'active' ? activeItems : reconsideredItems;
 
   return (
-    <div className="space-y-3 text-[#F4F0FA] font-sans antialiased">
+    <div className="space-y-3 text-white font-sans antialiased">
       {/* Mindfulness & Savings Summary Banner */}
-      <div className="p-3.5 bg-[#292438] rounded-2xl border border-[#3A344E] shadow-[0_4px_16px_rgba(23,21,31,0.25)] space-y-2.5">
+      <div className="p-3.5 bg-neutral-900 rounded-2xl border border-neutral-800 space-y-2.5">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5 text-xs font-bold text-[#F0C987]">
-            <Sparkles className="w-3.5 h-3.5 text-[#F0C987]" strokeWidth={1.5} />
+          <div className="flex items-center gap-1.5 text-xs font-bold text-white">
+            <Sparkles className="w-3.5 h-3.5 text-white" strokeWidth={1.5} />
             <span>30-Day Impulse Pause Shield</span>
           </div>
-          <span className="text-[10px] text-[#A69FB8]">
+          <span className="text-[10px] text-neutral-400">
             Active Pauses: {activeItems.length}
           </span>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 gap-2 pt-1 border-t border-[#3A344E]">
-          <div className="p-2.5 rounded-xl bg-[#17151F] border border-[#3A344E]">
-            <div className="text-[10px] text-[#A69FB8] uppercase font-medium flex items-center gap-1">
-              <TrendingUp className="w-3 h-3 text-[#F0C987]" strokeWidth={1.5} /> Total Money Saved
+        <div className="grid grid-cols-2 gap-2 pt-1 border-t border-neutral-800">
+          <div className="p-2.5 rounded-xl bg-black border border-neutral-800">
+            <div className="text-[10px] text-neutral-400 uppercase font-medium flex items-center gap-1">
+              <TrendingUp className="w-3 h-3 text-white" strokeWidth={1.5} /> Total Money Saved
             </div>
-            <div className="text-base font-bold text-[#F0C987] mt-0.5">
+            <div className="text-base font-bold text-white mt-0.5">
               ₹{stats.totalMoneySaved.toLocaleString('en-IN')}
             </div>
-            <div className="text-[9px] text-[#A69FB8]">from {stats.reconsideredCount} skipped impulses</div>
+            <div className="text-[9px] text-neutral-500">from {stats.reconsideredCount} skipped impulses</div>
           </div>
 
-          <div className="p-2.5 rounded-xl bg-[#17151F] border border-[#3A344E]">
-            <div className="text-[10px] text-[#A69FB8] uppercase font-medium flex items-center gap-1">
-              <Leaf className="w-3 h-3 text-[#B9A1F5]" strokeWidth={1.5} /> Diverted Carbon
+          <div className="p-2.5 rounded-xl bg-black border border-neutral-800">
+            <div className="text-[10px] text-neutral-400 uppercase font-medium flex items-center gap-1">
+              <Leaf className="w-3 h-3 text-white" strokeWidth={1.5} /> Diverted Carbon
             </div>
-            <div className="text-base font-bold text-[#B9A1F5] mt-0.5">
+            <div className="text-base font-bold text-white mt-0.5">
               {stats.totalCo2SavedKg} kg
             </div>
-            <div className="text-[9px] text-[#A69FB8]">embodied emissions saved</div>
+            <div className="text-[9px] text-neutral-500">embodied emissions saved</div>
           </div>
         </div>
       </div>
 
       {/* Segmented Filter */}
-      <div className="flex p-1 rounded-xl bg-[#292438] border border-[#3A344E] text-xs">
+      <div className="flex p-1 rounded-xl bg-neutral-950 border border-neutral-800 text-xs">
         <button
           onClick={() => setActiveTab('active')}
           className={`flex-1 py-1.5 rounded-lg text-[11px] font-medium transition-colors cursor-pointer flex items-center justify-center gap-1.5 ${
             activeTab === 'active'
-              ? 'bg-[#17151F] text-[#F0C987] shadow-sm font-semibold'
-              : 'text-[#C8C2D8] hover:text-[#F4F0FA]'
+              ? 'bg-neutral-800 text-white font-semibold'
+              : 'text-neutral-400 hover:text-white'
           }`}
         >
-          <Clock className="w-3.5 h-3.5 text-[#F0C987]" strokeWidth={1.5} />
+          <Clock className="w-3.5 h-3.5 text-white" strokeWidth={1.5} />
           <span>In Reflection ({activeItems.length})</span>
         </button>
 
@@ -124,11 +124,11 @@ export const PauseList: React.FC<PauseListProps> = () => {
           onClick={() => setActiveTab('reconsidered')}
           className={`flex-1 py-1.5 rounded-lg text-[11px] font-medium transition-colors cursor-pointer flex items-center justify-center gap-1.5 ${
             activeTab === 'reconsidered'
-              ? 'bg-[#17151F] text-[#B9A1F5] shadow-sm font-semibold'
-              : 'text-[#C8C2D8] hover:text-[#F4F0FA]'
+              ? 'bg-neutral-800 text-white font-semibold'
+              : 'text-neutral-400 hover:text-white'
           }`}
         >
-          <CheckCircle2 className="w-3.5 h-3.5 text-[#B9A1F5]" strokeWidth={1.5} />
+          <CheckCircle2 className="w-3.5 h-3.5 text-white" strokeWidth={1.5} />
           <span>Skipped &amp; Saved ({reconsideredItems.length})</span>
         </button>
       </div>
@@ -141,30 +141,30 @@ export const PauseList: React.FC<PauseListProps> = () => {
           return (
             <div
               key={item.id}
-              className="p-3 rounded-2xl bg-[#292438] border border-[#3A344E] hover:border-[#B9A1F5]/50 transition-all space-y-2 shadow-[0_4px_16px_rgba(23,21,31,0.2)]"
+              className="p-3 rounded-2xl bg-neutral-900 border border-neutral-800 hover:border-neutral-700 transition-all space-y-2"
             >
               <div className="flex items-start gap-2.5">
                 {item.imageUrl ? (
                   <img
                     src={item.imageUrl}
                     alt={item.title}
-                    className="w-10 h-10 object-contain rounded-xl bg-[#17151F] p-1 border border-[#3A344E] flex-shrink-0"
+                    className="w-10 h-10 object-contain rounded-xl bg-black p-1 border border-neutral-800 flex-shrink-0"
                   />
                 ) : (
-                  <div className="w-10 h-10 rounded-xl bg-[#17151F] flex items-center justify-center text-[#A69FB8] flex-shrink-0">
-                    <Clock className="w-4 h-4 text-[#F0C987]" strokeWidth={1.5} />
+                  <div className="w-10 h-10 rounded-xl bg-black flex items-center justify-center text-neutral-400 flex-shrink-0">
+                    <Clock className="w-4 h-4 text-white" strokeWidth={1.5} />
                   </div>
                 )}
 
                 <div className="flex-1 min-w-0">
-                  <h4 className="text-xs font-semibold text-[#F4F0FA] truncate" title={item.title}>
+                  <h4 className="text-xs font-semibold text-white truncate" title={item.title}>
                     {item.title}
                   </h4>
                   <div className="flex items-center gap-2 mt-0.5">
-                    <span className="text-xs font-bold text-[#F0C987]">
+                    <span className="text-xs font-bold text-white">
                       {item.currency} {item.price.toLocaleString('en-IN')}
                     </span>
-                    <span className="text-[10px] text-[#A69FB8] truncate">
+                    <span className="text-[10px] text-neutral-400 truncate">
                       {item.category}
                     </span>
                   </div>
@@ -172,7 +172,7 @@ export const PauseList: React.FC<PauseListProps> = () => {
 
                 <button
                   onClick={() => handleRemove(item.id)}
-                  className="text-[#A69FB8] hover:text-[#F08787] p-1 transition-colors cursor-pointer"
+                  className="text-neutral-500 hover:text-white p-1 transition-colors cursor-pointer"
                   title="Remove from list"
                 >
                   <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} />
@@ -181,39 +181,39 @@ export const PauseList: React.FC<PauseListProps> = () => {
 
               {/* Reflection Note */}
               {item.reflectionNote && (
-                <div className="p-2 rounded-xl bg-[#17151F] text-[11px] text-[#C8C2D8] italic border-l-2 border-[#F0C987]">
+                <div className="p-2 rounded-xl bg-black text-[11px] text-neutral-300 italic border-l-2 border-white">
                   "{item.reflectionNote}"
                 </div>
               )}
 
               {/* Status and Action Row */}
-              <div className="flex items-center justify-between pt-1 border-t border-[#3A344E] text-[11px]">
+              <div className="flex items-center justify-between pt-1 border-t border-neutral-800 text-[11px]">
                 {item.status === 'active' ? (
                   <>
-                    <span className="text-[#F0C987] font-medium flex items-center gap-1">
-                      <Clock className="w-3 h-3 text-[#F0C987]" strokeWidth={1.5} />
+                    <span className="text-neutral-300 font-medium flex items-center gap-1">
+                      <Clock className="w-3 h-3 text-white" strokeWidth={1.5} />
                       {daysLeft > 0 ? `${daysLeft} days remaining` : 'Cool-off complete!'}
                     </span>
 
                     <button
                       onClick={() => handleReconsider(item.id)}
-                      className="px-2.5 py-1 rounded-xl bg-[#B9A1F5]/15 hover:bg-[#B9A1F5]/25 text-[#B9A1F5] border border-[#B9A1F5]/40 text-[11px] font-semibold transition-colors flex items-center gap-1 cursor-pointer"
+                      className="px-2.5 py-1 rounded-xl bg-white hover:bg-neutral-200 text-black text-[11px] font-bold transition-colors flex items-center gap-1 cursor-pointer"
                     >
-                      <CheckCircle2 className="w-3 h-3 text-[#B9A1F5]" strokeWidth={1.5} />
+                      <CheckCircle2 className="w-3 h-3 text-black" strokeWidth={1.5} />
                       <span>I Skipped It!</span>
                     </button>
                   </>
                 ) : (
                   <>
-                    <span className="text-[#B9A1F5] font-medium flex items-center gap-1">
-                      <CheckCircle2 className="w-3 h-3 text-[#B9A1F5]" strokeWidth={1.5} /> Saved ₹{item.price.toLocaleString('en-IN')}!
+                    <span className="text-white font-medium flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3 text-white" strokeWidth={1.5} /> Saved ₹{item.price.toLocaleString('en-IN')}!
                     </span>
 
                     <a
                       href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#C8C2D8] hover:text-[#F4F0FA] flex items-center gap-1"
+                      className="text-neutral-400 hover:text-white flex items-center gap-1"
                     >
                       <span>Original Link</span>
                       <ExternalLink className="w-2.5 h-2.5" strokeWidth={1.5} />
@@ -226,12 +226,12 @@ export const PauseList: React.FC<PauseListProps> = () => {
         })}
 
         {displayedItems.length === 0 && !loading && (
-          <div className="text-center py-8 text-[#A69FB8] space-y-1.5">
-            <Clock className="w-7 h-7 mx-auto text-[#B9A1F5]" strokeWidth={1.5} />
-            <div className="text-xs font-semibold text-[#F4F0FA]">
+          <div className="text-center py-8 text-neutral-400 space-y-1.5">
+            <Clock className="w-7 h-7 mx-auto text-neutral-500" strokeWidth={1.5} />
+            <div className="text-xs font-semibold text-white">
               {activeTab === 'active' ? 'No items paused right now' : 'No reconsidered items yet'}
             </div>
-            <p className="text-[11px] text-[#A69FB8] max-w-[240px] mx-auto leading-relaxed">
+            <p className="text-[11px] text-neutral-500 max-w-[240px] mx-auto leading-relaxed">
               When browsing, use the 30-Day Pause shield to step away from impulse urges and let clarity settle in.
             </p>
           </div>
