@@ -50,26 +50,39 @@ function cleanPriceNumber(raw: string): number {
 }
 
 function parseAmazonProduct(url: string): ProductInfo | null {
-  const titleEl = document.querySelector<HTMLElement>('#productTitle, #title, h1#title');
-  const title = titleEl?.innerText?.trim();
+  const titleEl = document.querySelector<HTMLElement>(
+    '#productTitle, #title, h1#title, h1.a-size-large, span#productTitle'
+  );
+  let title = titleEl?.innerText?.trim() || titleEl?.textContent?.trim();
+  
+  // Meta tag or document title fallback
+  if (!title) {
+    const metaTitle = document.querySelector('meta[name="title"], meta[property="og:title"]')?.getAttribute('content');
+    if (metaTitle) {
+      title = metaTitle.replace(/\s*:\s*Amazon\..*$/i, '').trim();
+    }
+  }
+  if (!title && document.title) {
+    title = document.title.replace(/\s*:\s*Amazon\..*$/i, '').trim();
+  }
   if (!title) return null;
 
   // Price
   const priceEl = document.querySelector<HTMLElement>(
-    '.priceToPay .a-offscreen, #corePriceDisplay_desktop_feature_div .a-price .a-offscreen, #corePrice_desktop .a-price .a-offscreen, #priceblock_ourprice, #priceblock_dealprice, .a-price .a-offscreen'
+    '.priceToPay .a-offscreen, #corePriceDisplay_desktop_feature_div .a-price .a-offscreen, #corePrice_desktop .a-price .a-offscreen, #priceblock_ourprice, #priceblock_dealprice, .a-price .a-offscreen, span.apexPriceToPay span.a-offscreen, #tp_price_block_total_price_ww span'
   );
   const rawPrice = priceEl?.innerText?.trim() || priceEl?.textContent?.trim() || '₹0';
   const price = cleanPriceNumber(rawPrice);
 
   // Image
   const imgEl = document.querySelector<HTMLImageElement>(
-    '#landingImage, #imgTagWrapperId img, #main-image-container img, #imgBlkFront'
+    '#landingImage, #imgTagWrapperId img, #main-image-container img, #imgBlkFront, #main-image'
   );
   const imageUrl = imgEl?.src || imgEl?.dataset?.oldHires || imgEl?.dataset?.aDynamicImage;
 
   // Category breadcrumbs
   const breadcrumbs = Array.from(
-    document.querySelectorAll('#wayfinding-breadcrumbs_container ul li a, .a-breadcrumb a')
+    document.querySelectorAll('#wayfinding-breadcrumbs_container ul li a, .a-breadcrumb a, #nav-subnav a')
   )
     .map((el) => (el as HTMLElement).innerText.trim())
     .filter(Boolean)
@@ -100,21 +113,37 @@ function parseAmazonProduct(url: string): ProductInfo | null {
 }
 
 function parseFlipkartProduct(url: string): ProductInfo | null {
-  const titleEl = document.querySelector<HTMLElement>('span.VU-ZEz, h1.B_NuCI, span.B_NuCI, h1');
-  const title = titleEl?.innerText?.trim();
+  const titleEl = document.querySelector<HTMLElement>(
+    'span.VU-ZEz, h1.B_NuCI, span.B_NuCI, h1, span.G6XhRU'
+  );
+  let title = titleEl?.innerText?.trim() || titleEl?.textContent?.trim();
+
+  if (!title) {
+    const metaTitle = document.querySelector('meta[name="og_title"], meta[property="og:title"]')?.getAttribute('content');
+    if (metaTitle) {
+      title = metaTitle.replace(/\s*:\s*Buy.*Flipkart.*$/i, '').trim();
+    }
+  }
+  if (!title && document.title) {
+    title = document.title.replace(/\s*:\s*Buy.*Flipkart.*$/i, '').trim();
+  }
   if (!title) return null;
 
   // Price
-  const priceEl = document.querySelector<HTMLElement>('div.Nx9bqj.CxhGGd, div._30jeq3._16J0hh, div._30jeq3');
+  const priceEl = document.querySelector<HTMLElement>(
+    'div.Nx9bqj.CxhGGd, div._30jeq3._16J0hh, div._30jeq3, div.Nx9bqj'
+  );
   const rawPrice = priceEl?.innerText?.trim() || '₹0';
   const price = cleanPriceNumber(rawPrice);
 
   // Image
-  const imgEl = document.querySelector<HTMLImageElement>('img._396cs4._2amPTt, img.DByuf4, img._2r_T1I, img._53J4C-');
+  const imgEl = document.querySelector<HTMLImageElement>(
+    'img._396cs4._2amPTt, img.DByuf4, img._2r_T1I, img._53J4C-, img._0DkuPH'
+  );
   const imageUrl = imgEl?.src;
 
   // Category
-  const breadcrumbs = Array.from(document.querySelectorAll('div._2whKao, a._2whKao, div.r2CdBx a'))
+  const breadcrumbs = Array.from(document.querySelectorAll('div._2whKao, a._2whKao, div.r2CdBx a, a._1b-p17'))
     .map((el) => (el as HTMLElement).innerText.trim())
     .filter(Boolean)
     .join(' > ');

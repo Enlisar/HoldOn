@@ -66,15 +66,7 @@ export default function App() {
           <div className="w-5 h-5 rounded-full bg-[#B9A1F5] flex items-center justify-center text-[#17151F] shadow-sm">
             <Pause className="w-2.5 h-2.5 fill-[#17151F] text-[#17151F]" strokeWidth={1.5} />
           </div>
-          <div>
-            <div className="flex items-center gap-1.5">
-              <span className="text-xs font-bold tracking-tight text-[#F4F0FA]">HoldOn</span>
-              <span className="text-[10px] px-1.5 py-0.2 rounded-full font-medium bg-[#B9A1F5]/15 text-[#B9A1F5] border border-[#B9A1F5]/30">
-                Shopping Companion
-              </span>
-            </div>
-            <div className="text-[10px] text-[#A69FB8]">Intelligent Decision Shield</div>
-          </div>
+          <span className="text-xs font-bold tracking-tight text-[#F4F0FA]">HoldOn</span>
         </div>
 
         <span className="text-[10px] font-medium text-[#F0C987] px-2 py-0.5 rounded-full bg-[#292438] border border-[#3A344E]">

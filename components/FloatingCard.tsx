@@ -94,16 +94,13 @@ export const FloatingCard: React.FC<FloatingCardProps> = ({
           <div className="w-5 h-5 rounded-full bg-[#B9A1F5] flex items-center justify-center text-[#17151F] shadow-sm">
             <Pause className="w-2.5 h-2.5 fill-[#17151F] text-[#17151F]" strokeWidth={1.5} />
           </div>
-          <div className="text-left">
-            <div className="text-xs font-semibold text-[#F4F0FA] flex items-center gap-1.5">
-              <span>HoldOn</span>
-              {analysis && (
-                <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-[#292438] text-[#F0C987] font-medium border border-[#3A344E]">
-                  {analysis.repairabilityScore}/10
-                </span>
-              )}
-            </div>
-            <div className="text-[10px] text-[#A69FB8]">Click to expand</div>
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-semibold text-[#F4F0FA]">HoldOn</span>
+            {analysis && (
+              <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-[#292438] text-[#F0C987] font-medium border border-[#3A344E]">
+                {analysis.repairabilityScore}/10
+              </span>
+            )}
           </div>
           <Maximize2 className="w-3.5 h-3.5 text-[#A69FB8] group-hover:text-[#F4F0FA] transition-colors ml-1" strokeWidth={1.5} />
         </button>
@@ -130,12 +127,7 @@ export const FloatingCard: React.FC<FloatingCardProps> = ({
             <div className="w-5 h-5 rounded-full bg-[#B9A1F5] flex items-center justify-center text-[#17151F] shadow-sm">
               <Pause className="w-2.5 h-2.5 fill-[#17151F] text-[#17151F]" strokeWidth={1.5} />
             </div>
-            <div className="flex items-center gap-1.5">
-              <span className="text-xs font-bold tracking-tight text-[#F4F0FA]">HoldOn</span>
-              <span className="text-[10px] px-1.5 py-0.2 rounded-full font-medium bg-[#B9A1F5]/15 text-[#B9A1F5] border border-[#B9A1F5]/30">
-                Shopping Companion
-              </span>
-            </div>
+            <span className="text-xs font-bold tracking-tight text-[#F4F0FA]">HoldOn</span>
           </div>
 
           <div className="flex items-center gap-1">
