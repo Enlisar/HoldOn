@@ -26,49 +26,49 @@ export const LocalOptions: React.FC<LocalOptionsProps> = () => {
     switch (type) {
       case 'repair':
         return {
-          icon: <Wrench className="w-3 h-3 text-[#3E5234]" strokeWidth={1.5} />,
+          icon: <Wrench className="w-3 h-3 text-[#B9A1F5]" strokeWidth={1.5} />,
           label: 'Repair Hub',
-          bg: 'bg-[#A7B79B]/15 text-[#3E5234] border-[#A7B79B]/30',
+          bg: 'bg-[#B9A1F5]/15 text-[#B9A1F5] border-[#B9A1F5]/30',
         };
       case 'second-hand':
         return {
-          icon: <RotateCcw className="w-3 h-3 text-[#825520]" strokeWidth={1.5} />,
+          icon: <RotateCcw className="w-3 h-3 text-[#F0C987]" strokeWidth={1.5} />,
           label: 'Pre-owned / Refurb',
-          bg: 'bg-[#D9A66B]/15 text-[#825520] border-[#D9A66B]/30',
+          bg: 'bg-[#F0C987]/15 text-[#F0C987] border-[#F0C987]/30',
         };
       case 'borrow':
         return {
-          icon: <Share2 className="w-3 h-3 text-[#252923]" strokeWidth={1.5} />,
+          icon: <Share2 className="w-3 h-3 text-[#F4F0FA]" strokeWidth={1.5} />,
           label: 'Tool Library / Rental',
-          bg: 'bg-[#E9E7E0] text-[#252923] border-[#D5D2C7]',
+          bg: 'bg-[#3A344E] text-[#F4F0FA] border-[#4D4565]',
         };
       case 'recycle':
         return {
-          icon: <Recycle className="w-3 h-3 text-[#8A3B30]" strokeWidth={1.5} />,
+          icon: <Recycle className="w-3 h-3 text-[#F08787]" strokeWidth={1.5} />,
           label: 'E-Waste Recycler',
-          bg: 'bg-[#B96C60]/15 text-[#8A3B30] border-[#B96C60]/30',
+          bg: 'bg-[#F08787]/15 text-[#F08787] border-[#F08787]/30',
         };
     }
   };
 
   return (
-    <div className="space-y-3 text-[#252923] font-sans antialiased">
+    <div className="space-y-3 text-[#F4F0FA] font-sans antialiased">
       {/* City Banner */}
-      <div className="p-3 bg-white/80 rounded-2xl border border-[#E9E7E0] flex items-center justify-between gap-2 shadow-[0_2px_8px_rgba(37,41,35,0.03)]">
+      <div className="p-3 bg-[#292438] rounded-2xl border border-[#3A344E] flex items-center justify-between gap-2 shadow-[0_4px_16px_rgba(23,21,31,0.2)]">
         <div className="flex items-center gap-2 min-w-0">
-          <MapPin className="w-4 h-4 text-[#A7B79B] flex-shrink-0" strokeWidth={1.5} />
+          <MapPin className="w-4 h-4 text-[#B9A1F5] flex-shrink-0" strokeWidth={1.5} />
           <div className="min-w-0">
-            <div className="text-[10px] uppercase font-semibold text-[#5E645A]">Circular Ecosystem</div>
-            <div className="text-xs font-bold text-[#252923] flex items-center gap-1.5 mt-0.5">
+            <div className="text-[10px] uppercase font-semibold text-[#A69FB8]">Local Circular Network</div>
+            <div className="text-xs font-bold text-[#F4F0FA] flex items-center gap-1.5 mt-0.5">
               <span>Delhi NCR</span>
-              <span className="text-[10px] px-1.5 py-0.2 rounded-full font-medium bg-[#A7B79B]/20 text-[#3E5234]">
+              <span className="text-[10px] px-1.5 py-0.2 rounded-full font-medium bg-[#B9A1F5]/20 text-[#B9A1F5]">
                 8 Verified Hubs
               </span>
             </div>
           </div>
         </div>
 
-        <span className="text-[10px] text-[#5E645A] px-2 py-0.5 rounded-full bg-[#F7F6F0] border border-[#E9E7E0]">
+        <span className="text-[10px] text-[#A69FB8] px-2 py-0.5 rounded-full bg-[#17151F] border border-[#3A344E]">
           &lt; 10 km radius
         </span>
       </div>
@@ -87,8 +87,8 @@ export const LocalOptions: React.FC<LocalOptionsProps> = () => {
             onClick={() => setFilterType(chip.id)}
             className={`px-2.5 py-1 rounded-xl text-[11px] font-medium whitespace-nowrap transition-colors cursor-pointer ${
               filterType === chip.id
-                ? 'bg-[#252923] text-[#F7F6F0]'
-                : 'bg-white/80 text-[#5E645A] hover:text-[#252923] border border-[#E9E7E0]'
+                ? 'bg-[#B9A1F5] text-[#17151F] font-semibold'
+                : 'bg-[#292438] text-[#C8C2D8] hover:text-[#F4F0FA] border border-[#3A344E]'
             }`}
           >
             {chip.label}
@@ -103,40 +103,40 @@ export const LocalOptions: React.FC<LocalOptionsProps> = () => {
           return (
             <div
               key={place.id}
-              className="p-3 rounded-2xl bg-white/90 border border-[#E9E7E0] hover:border-[#D5D2C7] transition-all space-y-2 shadow-[0_2px_6px_rgba(37,41,35,0.03)]"
+              className="p-3 rounded-2xl bg-[#292438] border border-[#3A344E] hover:border-[#B9A1F5]/50 transition-all space-y-2 shadow-[0_4px_16px_rgba(23,21,31,0.2)]"
             >
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <h4 className="text-xs font-semibold text-[#252923]">{place.name}</h4>
+                    <h4 className="text-xs font-semibold text-[#F4F0FA]">{place.name}</h4>
                     {place.verified && (
-                      <span title="Verified Circular Hub">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#3E5234]" strokeWidth={1.5} />
+                      <span title="Verified Hub">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#B9A1F5]" strokeWidth={1.5} />
                       </span>
                     )}
                   </div>
-                  <div className="text-[11px] text-[#5E645A] mt-0.5">{place.category}</div>
+                  <div className="text-[11px] text-[#A69FB8] mt-0.5">{place.category}</div>
                 </div>
 
                 <div className="text-right flex-shrink-0">
-                  <span className="text-xs font-bold text-[#3E5234]">
+                  <span className="text-xs font-bold text-[#B9A1F5]">
                     {place.distanceKm} km
                   </span>
-                  <div className="flex items-center gap-0.5 text-[10px] text-[#825520] font-medium justify-end">
-                    <Star className="w-2.5 h-2.5 fill-[#D9A66B] text-[#D9A66B]" strokeWidth={1.5} />
+                  <div className="flex items-center gap-0.5 text-[10px] text-[#F0C987] font-medium justify-end">
+                    <Star className="w-2.5 h-2.5 fill-[#F0C987] text-[#F0C987]" strokeWidth={1.5} />
                     <span>{place.rating}</span>
                   </div>
                 </div>
               </div>
 
               {/* Tag and Hours */}
-              <div className="flex items-center justify-between text-[10px] text-[#5E645A] pt-1 border-t border-[#E9E7E0]">
+              <div className="flex items-center justify-between text-[10px] text-[#A69FB8] pt-1 border-t border-[#3A344E]">
                 <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full border text-[10px] font-medium ${badge.bg}`}>
                   {badge.icon} {badge.label}
                 </span>
 
                 {place.timing && (
-                  <span className="flex items-center gap-1 text-[#5E645A]">
+                  <span className="flex items-center gap-1 text-[#A69FB8]">
                     <Clock className="w-2.5 h-2.5" strokeWidth={1.5} /> {place.timing}
                   </span>
                 )}
@@ -144,7 +144,7 @@ export const LocalOptions: React.FC<LocalOptionsProps> = () => {
 
               {/* Address snippet & Directions button */}
               <div className="flex items-center justify-between gap-2 pt-0.5">
-                <span className="text-[11px] text-[#5E645A] truncate max-w-[210px]" title={place.address}>
+                <span className="text-[11px] text-[#A69FB8] truncate max-w-[210px]" title={place.address}>
                   {place.address}
                 </span>
 
@@ -152,10 +152,10 @@ export const LocalOptions: React.FC<LocalOptionsProps> = () => {
                   href={place.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-[#F7F6F0] hover:bg-[#E9E7E0] text-[#252923] text-[11px] font-medium transition-colors flex-shrink-0 border border-[#E9E7E0]"
+                  className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-[#17151F] hover:bg-[#342E47] text-[#F4F0FA] text-[11px] font-medium transition-colors flex-shrink-0 border border-[#3A344E]"
                 >
                   <span>Directions</span>
-                  <ExternalLink className="w-3 h-3 text-[#5E645A]" strokeWidth={1.5} />
+                  <ExternalLink className="w-3 h-3 text-[#B9A1F5]" strokeWidth={1.5} />
                 </a>
               </div>
             </div>
@@ -163,16 +163,16 @@ export const LocalOptions: React.FC<LocalOptionsProps> = () => {
         })}
 
         {places.length === 0 && (
-          <div className="text-center py-6 text-[#5E645A] space-y-1">
+          <div className="text-center py-6 text-[#A69FB8] space-y-1">
             <p className="text-xs">No hubs found for this category in Delhi NCR.</p>
           </div>
         )}
       </div>
 
-      {/* Sustainable Circular Tip Banner */}
-      <div className="p-2.5 rounded-xl bg-[#A7B79B]/15 border border-[#A7B79B]/30 text-[11px] text-[#3E5234] flex items-start gap-1.5">
-        <span className="font-bold">Tip:</span>
-        <span className="text-[#3E5234]">A 20-minute repair at Nehru Place or Gaffar Market keeps dangerous heavy metals out of landfills.</span>
+      {/* Tip Banner */}
+      <div className="p-2.5 rounded-xl bg-[#B9A1F5]/10 border border-[#B9A1F5]/25 text-[11px] text-[#F4F0FA] flex items-start gap-1.5">
+        <span className="font-bold text-[#B9A1F5]">Tip:</span>
+        <span className="text-[#C8C2D8]">Repairing hardware locally in Nehru Place or Gaffar Market extends gadget lifespan and prevents e-waste.</span>
       </div>
     </div>
   );

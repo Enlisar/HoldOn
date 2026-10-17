@@ -5,8 +5,8 @@ html, body {
   padding: 0;
   width: 380px;
   min-height: 520px;
-  background-color: #F7F6F0;
-  color: #252923;
+  background-color: #17151F;
+  color: #F4F0FA;
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   overflow-x: hidden;
 }

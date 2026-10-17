@@ -1,4 +1,4 @@
-# HoldOn (Circular Lens) 🌿⏸️
+# HoldOn 🌿⏸️
 
 > **Think before you click buy.**  
 > A cross-browser extension for **Chromium** (Chrome, Edge, Brave, Opera) and **Firefox** that intervenes on e-commerce product pages (Amazon.in & Flipkart) to calculate **True Ownership Cost**, assess **Repairability**, guide **Mindful Purchasing Decisions**, connect shoppers with **Delhi NCR Circular Hubs**, and enforce a **30-Day Impulse Pause Shield**.

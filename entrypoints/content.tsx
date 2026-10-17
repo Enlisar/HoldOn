@@ -38,7 +38,7 @@ export default defineContentScript({
 
       try {
         currentUi = await createShadowRootUi(ctx, {
-          name: 'holdon-circular-lens',
+          name: 'holdon-app',
           position: 'overlay',
           anchor: 'body',
           append: 'last',

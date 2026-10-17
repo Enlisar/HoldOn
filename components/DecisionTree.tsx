@@ -167,153 +167,153 @@ export const DecisionTree: React.FC<DecisionTreeProps> = ({
   // Verdict Result View
   if (resultVerdict) {
     return (
-      <div className="space-y-4 text-[#252923] font-sans antialiased">
-        <div className="flex items-center justify-between pb-2 border-b border-[#E9E7E0]">
+      <div className="space-y-4 text-[#F4F0FA] font-sans antialiased">
+        <div className="flex items-center justify-between pb-2 border-b border-[#3A344E]">
           <button
             onClick={onBackToScorecard}
-            className="flex items-center gap-1 text-xs text-[#5E645A] hover:text-[#252923] transition-colors cursor-pointer"
+            className="flex items-center gap-1 text-xs text-[#C8C2D8] hover:text-[#B9A1F5] transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-3.5 h-3.5" strokeWidth={1.5} /> Back to Scorecard
           </button>
           <button
             onClick={handleRestart}
-            className="flex items-center gap-1 text-xs text-[#5E645A] hover:text-[#252923] transition-colors cursor-pointer"
+            className="flex items-center gap-1 text-xs text-[#C8C2D8] hover:text-[#B9A1F5] transition-colors cursor-pointer"
           >
             <RotateCcw className="w-3 h-3" strokeWidth={1.5} /> Retake Quiz
           </button>
         </div>
 
         {resultVerdict === 'repair' && (
-          <div className="p-4 rounded-2xl bg-white/90 border border-[#A7B79B] text-center space-y-3 shadow-[0_2px_8px_rgba(37,41,35,0.04)]">
-            <div className="w-10 h-10 rounded-full bg-[#A7B79B]/20 text-[#3E5234] flex items-center justify-center mx-auto">
+          <div className="p-4 rounded-2xl bg-[#292438] border border-[#B9A1F5] text-center space-y-3 shadow-[0_4px_16px_rgba(23,21,31,0.25)]">
+            <div className="w-10 h-10 rounded-full bg-[#B9A1F5]/20 text-[#B9A1F5] flex items-center justify-center mx-auto">
               <Wrench className="w-5 h-5" strokeWidth={1.5} />
             </div>
             <div>
-              <span className="text-[10px] font-semibold tracking-wider uppercase text-[#3E5234]">Recommendation</span>
-              <h3 className="text-base font-bold text-[#252923] mt-0.5">Attempt Repair First</h3>
-              <p className="text-xs text-[#5E645A] mt-1 leading-relaxed">
+              <span className="text-[10px] font-semibold tracking-wider uppercase text-[#B9A1F5]">Recommendation</span>
+              <h3 className="text-base font-bold text-[#F4F0FA] mt-0.5">Attempt Repair First</h3>
+              <p className="text-xs text-[#C8C2D8] mt-1 leading-relaxed">
                 You haven't tried fixing your existing item yet. A quick component or battery service at a local Delhi hub often restores 100% functionality.
               </p>
             </div>
             <div className="pt-1">
               <button
                 onClick={onSwitchToLocalOptions}
-                className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold bg-[#252923] hover:bg-[#343a31] text-[#F7F6F0] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+                className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold bg-[#B9A1F5] hover:bg-[#cbb9f8] text-[#17151F] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-[0_4px_16px_rgba(185,161,245,0.25)]"
               >
-                <Wrench className="w-3.5 h-3.5 text-[#A7B79B]" strokeWidth={1.5} /> Find Nearby Delhi Repair Hubs
+                <Wrench className="w-3.5 h-3.5 text-[#17151F]" strokeWidth={1.5} /> Find Nearby Delhi Repair Hubs
               </button>
             </div>
           </div>
         )}
 
         {resultVerdict === 'borrow' && (
-          <div className="p-4 rounded-2xl bg-white/90 border border-[#D9A66B] text-center space-y-3 shadow-[0_2px_8px_rgba(37,41,35,0.04)]">
-            <div className="w-10 h-10 rounded-full bg-[#D9A66B]/20 text-[#825520] flex items-center justify-center mx-auto">
+          <div className="p-4 rounded-2xl bg-[#292438] border border-[#F0C987] text-center space-y-3 shadow-[0_4px_16px_rgba(23,21,31,0.25)]">
+            <div className="w-10 h-10 rounded-full bg-[#F0C987]/20 text-[#F0C987] flex items-center justify-center mx-auto">
               <Share2 className="w-5 h-5" strokeWidth={1.5} />
             </div>
             <div>
-              <span className="text-[10px] font-semibold tracking-wider uppercase text-[#825520]">Recommendation</span>
-              <h3 className="text-base font-bold text-[#252923] mt-0.5">Borrow or Rent Locally</h3>
-              <p className="text-xs text-[#5E645A] mt-1 leading-relaxed">
+              <span className="text-[10px] font-semibold tracking-wider uppercase text-[#F0C987]">Recommendation</span>
+              <h3 className="text-base font-bold text-[#F4F0FA] mt-0.5">Borrow or Rent Locally</h3>
+              <p className="text-xs text-[#C8C2D8] mt-1 leading-relaxed">
                 Since you will only use this a few times a year, buying full price produces closet clutter. Consider renting from a local tool library in Delhi NCR.
               </p>
             </div>
             <div className="pt-1">
               <button
                 onClick={onSwitchToLocalOptions}
-                className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold bg-[#252923] hover:bg-[#343a31] text-[#F7F6F0] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+                className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold bg-[#F0C987] hover:bg-[#f5d7a6] text-[#17151F] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-[0_4px_16px_rgba(240,201,135,0.25)]"
               >
-                <Share2 className="w-3.5 h-3.5 text-[#D9A66B]" strokeWidth={1.5} /> View Delhi Tool &amp; Rental Hubs
+                <Share2 className="w-3.5 h-3.5 text-[#17151F]" strokeWidth={1.5} /> View Delhi Tool &amp; Rental Hubs
               </button>
             </div>
           </div>
         )}
 
         {resultVerdict === 'second_hand' && (
-          <div className="p-4 rounded-2xl bg-white/90 border border-[#A7B79B] text-center space-y-3 shadow-[0_2px_8px_rgba(37,41,35,0.04)]">
-            <div className="w-10 h-10 rounded-full bg-[#A7B79B]/20 text-[#3E5234] flex items-center justify-center mx-auto">
+          <div className="p-4 rounded-2xl bg-[#292438] border border-[#B9A1F5] text-center space-y-3 shadow-[0_4px_16px_rgba(23,21,31,0.25)]">
+            <div className="w-10 h-10 rounded-full bg-[#B9A1F5]/20 text-[#B9A1F5] flex items-center justify-center mx-auto">
               <RotateCcw className="w-5 h-5" strokeWidth={1.5} />
             </div>
             <div>
-              <span className="text-[10px] font-semibold tracking-wider uppercase text-[#3E5234]">Recommendation</span>
-              <h3 className="text-base font-bold text-[#252923] mt-0.5">Buy Refurbished / Second-Hand</h3>
-              <p className="text-xs text-[#5E645A] mt-1 leading-relaxed">
+              <span className="text-[10px] font-semibold tracking-wider uppercase text-[#B9A1F5]">Recommendation</span>
+              <h3 className="text-base font-bold text-[#F4F0FA] mt-0.5">Buy Refurbished / Second-Hand</h3>
+              <p className="text-xs text-[#C8C2D8] mt-1 leading-relaxed">
                 You have a genuine utility need, but choosing certified refurbished or pre-owned saves you 30-50% while cutting manufacturing footprint.
               </p>
             </div>
             <div className="pt-1">
               <button
                 onClick={onSwitchToLocalOptions}
-                className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold bg-[#252923] hover:bg-[#343a31] text-[#F7F6F0] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+                className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold bg-[#B9A1F5] hover:bg-[#cbb9f8] text-[#17151F] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-[0_4px_16px_rgba(185,161,245,0.25)]"
               >
-                <RotateCcw className="w-3.5 h-3.5 text-[#A7B79B]" strokeWidth={1.5} /> Check Refurb &amp; Thrift Hubs
+                <RotateCcw className="w-3.5 h-3.5 text-[#17151F]" strokeWidth={1.5} /> Check Refurb &amp; Thrift Hubs
               </button>
             </div>
           </div>
         )}
 
         {resultVerdict === 'wait_30_days' && (
-          <div className="p-4 rounded-2xl bg-white/90 border border-[#D9A66B] text-center space-y-3 shadow-[0_2px_8px_rgba(37,41,35,0.04)]">
-            <div className="w-10 h-10 rounded-full bg-[#D9A66B]/20 text-[#825520] flex items-center justify-center mx-auto">
+          <div className="p-4 rounded-2xl bg-[#292438] border border-[#F0C987] text-center space-y-3 shadow-[0_4px_16px_rgba(23,21,31,0.25)]">
+            <div className="w-10 h-10 rounded-full bg-[#F0C987]/20 text-[#F0C987] flex items-center justify-center mx-auto">
               <Clock className="w-5 h-5" strokeWidth={1.5} />
             </div>
             <div>
-              <span className="text-[10px] font-semibold tracking-wider uppercase text-[#825520]">Recommendation</span>
-              <h3 className="text-base font-bold text-[#252923] mt-0.5">Activate 30-Day Cool Off</h3>
-              <p className="text-xs text-[#5E645A] mt-1 leading-relaxed">
+              <span className="text-[10px] font-semibold tracking-wider uppercase text-[#F0C987]">Recommendation</span>
+              <h3 className="text-base font-bold text-[#F4F0FA] mt-0.5">Activate 30-Day Cool Off</h3>
+              <p className="text-xs text-[#C8C2D8] mt-1 leading-relaxed">
                 This purchase exhibits high impulse triggers. Putting it on the 30-day pause shield breaks the dopamine loop. Most shoppers forget about it within two weeks.
               </p>
             </div>
             <div className="pt-1">
               <button
                 onClick={onSwitchToPauseList}
-                className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold bg-[#252923] hover:bg-[#343a31] text-[#F7F6F0] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+                className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold bg-[#F0C987] hover:bg-[#f5d7a6] text-[#17151F] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-[0_4px_16px_rgba(240,201,135,0.25)]"
               >
-                <Clock className="w-3.5 h-3.5 text-[#D9A66B]" strokeWidth={1.5} /> Save to 30-Day Pause List
+                <Clock className="w-3.5 h-3.5 text-[#17151F]" strokeWidth={1.5} /> Save to 30-Day Pause List
               </button>
             </div>
           </div>
         )}
 
         {resultVerdict === 'skip' && (
-          <div className="p-4 rounded-2xl bg-white/90 border border-[#B96C60] text-center space-y-3 shadow-[0_2px_8px_rgba(37,41,35,0.04)]">
-            <div className="w-10 h-10 rounded-full bg-[#B96C60]/15 text-[#8A3B30] flex items-center justify-center mx-auto">
+          <div className="p-4 rounded-2xl bg-[#292438] border border-[#F08787] text-center space-y-3 shadow-[0_4px_16px_rgba(23,21,31,0.25)]">
+            <div className="w-10 h-10 rounded-full bg-[#F08787]/15 text-[#F08787] flex items-center justify-center mx-auto">
               <XCircle className="w-5 h-5" strokeWidth={1.5} />
             </div>
             <div>
-              <span className="text-[10px] font-semibold tracking-wider uppercase text-[#8A3B30]">Recommendation</span>
-              <h3 className="text-base font-bold text-[#252923] mt-0.5">Skip This Purchase</h3>
-              <p className="text-xs text-[#5E645A] mt-1 leading-relaxed">
+              <span className="text-[10px] font-semibold tracking-wider uppercase text-[#F08787]">Recommendation</span>
+              <h3 className="text-base font-bold text-[#F4F0FA] mt-0.5">Skip This Purchase</h3>
+              <p className="text-xs text-[#C8C2D8] mt-1 leading-relaxed">
                 You already own a functional equivalent. Celebrate skipping the impulse and keeping {product.currency}{product.price.toLocaleString('en-IN')} in your savings!
               </p>
             </div>
             <div className="pt-1">
               <button
                 onClick={onSwitchToPauseList}
-                className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold bg-white hover:bg-[#F0EEE7] text-[#252923] border border-[#E9E7E0] transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold bg-[#292438] hover:bg-[#342E47] text-[#F0C987] border border-[#3A344E] transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
-                <Clock className="w-3.5 h-3.5 text-[#D9A66B]" strokeWidth={1.5} /> Save to Pause List Just in Case
+                <Clock className="w-3.5 h-3.5 text-[#F0C987]" strokeWidth={1.5} /> Save to Pause List Just in Case
               </button>
             </div>
           </div>
         )}
 
         {resultVerdict === 'buy_new' && (
-          <div className="p-4 rounded-2xl bg-white/90 border border-[#A7B79B] text-center space-y-3 shadow-[0_2px_8px_rgba(37,41,35,0.04)]">
-            <div className="w-10 h-10 rounded-full bg-[#A7B79B]/20 text-[#3E5234] flex items-center justify-center mx-auto">
+          <div className="p-4 rounded-2xl bg-[#292438] border border-[#B9A1F5] text-center space-y-3 shadow-[0_4px_16px_rgba(23,21,31,0.25)]">
+            <div className="w-10 h-10 rounded-full bg-[#B9A1F5]/20 text-[#B9A1F5] flex items-center justify-center mx-auto">
               <ThumbsUp className="w-5 h-5" strokeWidth={1.5} />
             </div>
             <div>
-              <span className="text-[10px] font-semibold tracking-wider uppercase text-[#3E5234]">Recommendation</span>
-              <h3 className="text-base font-bold text-[#252923] mt-0.5">Proceed Mindfully</h3>
-              <p className="text-xs text-[#5E645A] mt-1 leading-relaxed">
+              <span className="text-[10px] font-semibold tracking-wider uppercase text-[#B9A1F5]">Recommendation</span>
+              <h3 className="text-base font-bold text-[#F4F0FA] mt-0.5">Proceed Mindfully</h3>
+              <p className="text-xs text-[#C8C2D8] mt-1 leading-relaxed">
                 Your answers reflect a genuine gap and high daily frequency. Ensure you maintain and clean the item routinely to maximize its lifespan.
               </p>
             </div>
             <div className="pt-1">
               <button
                 onClick={onBackToScorecard}
-                className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold bg-[#252923] hover:bg-[#343a31] text-[#F7F6F0] transition-all cursor-pointer shadow-sm"
+                className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold bg-[#B9A1F5] hover:bg-[#cbb9f8] text-[#17151F] transition-all cursor-pointer shadow-[0_4px_16px_rgba(185,161,245,0.25)]"
               >
                 Review Scorecard &amp; Care Details
               </button>
@@ -326,26 +326,26 @@ export const DecisionTree: React.FC<DecisionTreeProps> = ({
 
   // Active Question View
   return (
-    <div className="space-y-3.5 text-[#252923] font-sans antialiased">
+    <div className="space-y-3.5 text-[#F4F0FA] font-sans antialiased">
       {/* Top Progress & Back */}
-      <div className="space-y-2 pb-1.5 border-b border-[#E9E7E0]">
-        <div className="flex items-center justify-between text-xs text-[#5E645A]">
+      <div className="space-y-2 pb-1.5 border-b border-[#3A344E]">
+        <div className="flex items-center justify-between text-xs text-[#C8C2D8]">
           <button
             onClick={currentStep > 0 ? () => setCurrentStep(currentStep - 1) : onBackToScorecard}
-            className="flex items-center gap-1 hover:text-[#252923] transition-colors cursor-pointer"
+            className="flex items-center gap-1 hover:text-[#B9A1F5] transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-3.5 h-3.5" strokeWidth={1.5} />
             {currentStep > 0 ? 'Previous' : 'Scorecard'}
           </button>
-          <span className="font-semibold text-[#3E5234] text-[11px]">
+          <span className="font-semibold text-[#B9A1F5] text-[11px]">
             Question {currentStep + 1} of {totalQuestions}
           </span>
         </div>
 
-        {/* Calm Progress Bar */}
-        <div className="w-full bg-[#E9E7E0] rounded-full h-1 overflow-hidden">
+        {/* Progress Bar */}
+        <div className="w-full bg-[#292438] rounded-full h-1 overflow-hidden">
           <div
-            className="h-full bg-[#A7B79B] transition-all duration-300 rounded-full"
+            className="h-full bg-[#B9A1F5] transition-all duration-300 rounded-full"
             style={{ width: `${((currentStep + 1) / totalQuestions) * 100}%` }}
           />
         </div>
@@ -353,10 +353,10 @@ export const DecisionTree: React.FC<DecisionTreeProps> = ({
 
       {/* Question Title & Subtext */}
       <div className="space-y-0.5">
-        <h3 className="text-xs font-semibold text-[#252923] leading-snug">
+        <h3 className="text-xs font-semibold text-[#F4F0FA] leading-snug">
           {currentQ.question}
         </h3>
-        <p className="text-[11px] text-[#5E645A] leading-relaxed">
+        <p className="text-[11px] text-[#C8C2D8] leading-relaxed">
           {currentQ.subtext}
         </p>
       </div>
@@ -371,25 +371,25 @@ export const DecisionTree: React.FC<DecisionTreeProps> = ({
               onClick={() => handleSelectOption(opt.id)}
               className={`w-full text-left p-3 rounded-2xl border transition-all flex items-start gap-3 cursor-pointer ${
                 isSelected
-                  ? 'bg-[#A7B79B]/15 border-[#A7B79B] shadow-sm'
-                  : 'bg-white/80 hover:bg-white border-[#E9E7E0] hover:border-[#D5D2C7]'
+                  ? 'bg-[#B9A1F5]/15 border-[#B9A1F5] shadow-[0_4px_16px_rgba(185,161,245,0.15)]'
+                  : 'bg-[#292438] hover:bg-[#342E47] border-[#3A344E] hover:border-[#B9A1F5]/50'
               }`}
             >
               <div
                 className={`w-3.5 h-3.5 rounded-full border mt-0.5 flex items-center justify-center flex-shrink-0 transition-colors ${
                   isSelected
-                    ? 'border-[#252923] bg-[#252923]'
-                    : 'border-[#B4B9AE] bg-transparent'
+                    ? 'border-[#B9A1F5] bg-[#B9A1F5]'
+                    : 'border-[#A69FB8] bg-transparent'
                 }`}
               >
-                {isSelected && <div className="w-1 h-1 rounded-full bg-[#F7F6F0]" />}
+                {isSelected && <div className="w-1 h-1 rounded-full bg-[#17151F]" />}
               </div>
               <div className="space-y-0.5">
-                <div className="text-xs font-semibold text-[#252923]">
+                <div className="text-xs font-semibold text-[#F4F0FA]">
                   {opt.label}
                 </div>
                 {opt.description && (
-                  <div className="text-[11px] text-[#5E645A] leading-normal">
+                  <div className="text-[11px] text-[#C8C2D8] leading-normal">
                     {opt.description}
                   </div>
                 )}

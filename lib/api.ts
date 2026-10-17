@@ -60,7 +60,7 @@ export async function analyzeProductWithGrok(
   }
 
   try {
-    const prompt = `You are the HoldOn Circular Lens AI Engine. Analyze this consumer product for true ownership cost, durability, and circular economy footprint.
+    const prompt = `You are the HoldOn AI Engine. Analyze this consumer product for true ownership cost, durability, and circular economy footprint.
 
 Product Title: "${title}"
 Category: "${categoryBreadcrumb}"

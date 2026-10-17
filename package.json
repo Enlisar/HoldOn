@@ -1,6 +1,6 @@
 {
-  "name": "holdon-circular-extension",
-  "description": "HoldOn Circular Lens - Mindful Shopping & True Cost Browser Extension",
+  "name": "holdon-extension",
+  "description": "HoldOn - Mindful Shopping & True Cost Browser Extension",
   "private": true,
   "version": "1.0.0",
   "type": "module",
