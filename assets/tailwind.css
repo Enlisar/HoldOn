@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ivory: #F7F6F0;
+  --color-forest: #252923;
+  --color-sage: #A7B79B;
+  --color-amber-warm: #D9A66B;
+  --color-stone-soft: #E9E7E0;
+  --color-terracotta: #B96C60;
+  --color-forest-muted: #5E645A;
+  --color-forest-subtle: #8A9084;
+}
+
+/* Custom utility styles for isolated shadow root UI */
+:host {
+  all: initial;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+
+/* Calm Minimalist scrollbars */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D5D2C7;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A7B79B;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

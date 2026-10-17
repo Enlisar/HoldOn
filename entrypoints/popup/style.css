@@ -1,0 +1,12 @@
+@import "../../assets/tailwind.css";
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 380px;
+  min-height: 520px;
+  background-color: #F7F6F0;
+  color: #252923;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow-x: hidden;
+}
