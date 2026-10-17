@@ -200,7 +200,7 @@ export const PauseList: React.FC<PauseListProps> = () => {
                       className="px-2.5 py-1 rounded-xl bg-[#B9A1F5]/15 hover:bg-[#B9A1F5]/25 text-[#B9A1F5] border border-[#B9A1F5]/40 text-[11px] font-semibold transition-colors flex items-center gap-1 cursor-pointer"
                     >
                       <CheckCircle2 className="w-3 h-3 text-[#B9A1F5]" strokeWidth={1.5} />
-                      <span>I Skipped It! 🎉</span>
+                      <span>I Skipped It!</span>
                     </button>
                   </>
                 ) : (
